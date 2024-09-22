@@ -57,8 +57,8 @@ function Register() {
     try {
       e.preventDefault();
   
-      if (loading) return;
-      if (file === "") return;
+      if (loading) return console.log("loading");
+      if (file === "") return console.log("file empty");
       const { firstname, lastname, email, password, confpassword } = formDetails;
       if (!firstname || !lastname || !email || !password || !confpassword || !selectedRole) {
         return toast.error("Input field should not be empty");
@@ -71,7 +71,7 @@ function Register() {
       } else if (password !== confpassword) {
         return toast.error("Passwords do not match");
       }
-  
+      console.log("Sending request to server. Linea 76 register.jsx");
       await toast.promise(
         axios.post("/user/register", {
           firstname,
@@ -88,8 +88,12 @@ function Register() {
           loading: "Registering user...",
         }
       );
+      console.log("Request sent successfully.");
       return navigate("/login");
-    } catch (error) {}
+    } catch (error) {
+      console.error("Error while registration:", error);
+  // Manejo adicional del error si es necesario
+    }
   };
   
 
